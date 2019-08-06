@@ -7,12 +7,12 @@ let gulp = require('gulp')
 // let htmlmin = require('gulp-htmlmin')    //压缩html
 // let livereload = require('gulp-livereload') //半自动项目工具 解决手动构建 
 // let connect = require('gulp-connect') 
-let autoprefixer = require('gulp-autoprefixer');
+let autoprefixer = require('gulp-autoprefixer') //前缀自动补全
 let babel = require('gulp-babel') 
 let pump = require('pump') 
-let imagemin = require('gulp-imagemin'); //压缩图片
-let cache = require('gulp-cache'); //缓存图片
-let clean = require('gulp-clean'); 
+let imagemin = require('gulp-imagemin') //压缩图片
+let cache = require('gulp-cache') //缓存图片
+let clean = require('gulp-clean') 
 let open = require('open') 
 
 var $ = require('gulp-load-plugins')()//插件集合
@@ -118,6 +118,7 @@ gulp.task('server',['default'],function(){
     gulp.watch('src/js/*.js',['js'])
     gulp.watch(['src/less/*.less','src/css/*.css'],['css'])
     gulp.watch(['src/index.html'],['html'])
+    gulp.watch(['src/img/*'],['image'])
     open('http://localhost:5000/')
 })
 
