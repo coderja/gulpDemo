@@ -7,6 +7,7 @@ let gulp = require('gulp')
 // let htmlmin = require('gulp-htmlmin')    //压缩html
 // let livereload = require('gulp-livereload') //半自动项目工具 解决手动构建 
 // let connect = require('gulp-connect') 
+let autoprefixer = require('gulp-autoprefixer');
 let babel = require('gulp-babel') 
 let pump = require('pump') 
 let imagemin = require('gulp-imagemin'); //压缩图片
@@ -77,6 +78,7 @@ gulp.task('less',function(){
 
 gulp.task('css',['less'],function(){
     return gulp.src('src/css/*.css')
+    .pipe(autoprefixer())
     .pipe($.concat('build.css'))
     .pipe($.rename({suffix:'.min'}))
     .pipe($.cleanCss({compatibility:'ie8'}))
