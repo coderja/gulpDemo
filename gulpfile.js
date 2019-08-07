@@ -11,6 +11,7 @@ let autoprefixer = require('gulp-autoprefixer') //前缀自动补全
 let babel = require('gulp-babel') 
 let pump = require('pump') 
 let imagemin = require('gulp-imagemin') //压缩图片
+let spritesmith = require('gulp.spritesmith'); //压缩图片
 let cache = require('gulp-cache') //缓存图片
 let clean = require('gulp-clean') 
 let open = require('open') 
@@ -58,7 +59,7 @@ gulp.task('uglify_check', function (cb) {
 });
 
 gulp.task('image',function(){
-    gulp.src('src/img/**/*.{png,jpg,gif,ico}')
+    gulp.src('src/img/*.{png,jpg,gif,ico}')
     .pipe(cache(imagemin({
         optimizationLevel: 5, //类型：Number 默认：5 取值范围：0-7（优化等级）
         progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
@@ -66,6 +67,18 @@ gulp.task('image',function(){
         multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
     })))
     .pipe(gulp.dest('dist/img'))
+
+     //制作雪碧图
+     gulp.src('src/img/sprite/*')
+     .pipe(spritesmith({
+         'imgName':'sprite.png',
+         'cssName':'sprite.css',
+         'padding':5 
+     }))
+     .pipe(gulp.dest('src/css/temp'));
+
+　　  gulp.src('src/css/temp/sprite.png')
+     .pipe(gulp.dest('dist/css/'));
 })
 
 gulp.task('less',function(){
@@ -77,7 +90,7 @@ gulp.task('less',function(){
 })
 
 gulp.task('css',['less'],function(){
-    return gulp.src('src/css/*.css')
+    return gulp.src('src/css/**/*.css')
     .pipe(autoprefixer())
     .pipe($.concat('build.css'))
     .pipe($.rename({suffix:'.min'}))
@@ -103,8 +116,8 @@ gulp.task('watch',['default'],function(){
 
 // 清空dist文件夹
 gulp.task('clean', function(){
-    return gulp.src(['/dist/*'])
-        .pipe(clean());
+    return gulp.src('/dist/')
+        .pipe(clean({force: true}));
 });
 
 //注册全自动监视任务

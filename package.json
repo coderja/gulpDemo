@@ -27,6 +27,7 @@
     "gulp-load-plugins": "^2.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.2",
+    "gulp.spritesmith": "^6.10.1",
     "open": "^6.4.0",
     "pump": "^3.0.0"
   },
@@ -39,5 +40,5 @@
     "Opera  > 1",
     "ie >= 6",
     "Edge >= 9"
- ]
+  ]
 }
