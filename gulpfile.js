@@ -116,7 +116,8 @@ gulp.task('watch',['default'],function(){
 
 // 清空dist文件夹
 gulp.task('clean', function(){
-    return gulp.src('/dist/')
+    console.log(1)
+    return gulp.src('dist/*')
         .pipe(clean({force: true}));
 });
 
